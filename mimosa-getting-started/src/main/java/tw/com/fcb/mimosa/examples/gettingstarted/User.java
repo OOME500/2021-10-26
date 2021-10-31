@@ -23,7 +23,7 @@ public class User {
 	String name;
 	int age;
 	LocalDate createDate;
-	LocalDate ModifyDate;
+	LocalDate modifyDate;
 	
 //	public String getName() {
 //		return name;

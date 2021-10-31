@@ -48,23 +48,29 @@ public class UserController {
 	}
 	
 	@PostMapping("/createUser")
-	void createUser(@RequestBody User user) {
-		user.setUuid(UUID.randomUUID().toString());
-		user.setCreateDate(LocalDate.now());
-		users.add(user);
+	void createUser(@RequestBody UserRequest userReq) {
+		users.add(User.builder().name(userReq.getUserName())
+				.age(userReq.getAge())
+				.uuid(UUID.randomUUID().toString())
+				.createDate(LocalDate.now())
+				.build());
 	}
 	
 	
 	//Github repository name:2021-10-26
 	//TODO:修改使用者PUT
 	@PostMapping("/modifyUser")
-	String modifyUser(@RequestBody User user) {
+	String modifyUser(@RequestBody UserRequest userReq) {
 		String result = "";
 		int count = 0;
 		for(int i=0;i<users.size();i++) {
-			if(users.get(i).getUuid().equals(user.getUuid())) {
-				users.set(i, user);
-				users.get(i).setModifyDate(LocalDate.now());
+			if(users.get(i).getUuid().equals(userReq.getMemberId())) {
+				users.set(i, User.builder().name(userReq.getUserName())
+						.age(userReq.getAge())
+						.uuid(UUID.randomUUID().toString())
+						.createDate(users.get(i).getCreateDate())
+						.modifyDate(LocalDate.now())
+						.build());
 				result = "Modify success!";
 				count++;
 			}
@@ -77,11 +83,11 @@ public class UserController {
 	
 	//TODO:刪除使用者DELETE
 	@PostMapping("/deleteUser")
-	String deleteUser(@RequestBody User user) {
+	String deleteUser(@RequestBody UserRequest userReq) {
 		String result = "";
 		int count = 0;
 		for(int i=0;i<users.size();i++) {
-			if(users.get(i).getUuid().equals(user.getUuid())) {
+			if(users.get(i).getUuid().equals(userReq.getMemberId())) {
 				users.remove(i);
 				result = "Delete success!";
 				count++;
