@@ -10,9 +10,5 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class UserDto {
-	String memberId;
 	String userName;
-	String age;
-	String createDate;
-	String modifyDate;
 }
